@@ -33,4 +33,23 @@ std::unique_ptr<Serializable> PolymorphicSerializable::makeAndDeserialize(const 
     return result;
 }
 
+QVariantMap PolymorphicSerializable::saveToMap() const {
+    auto map = saveToMapImpl();
+    if(map.contains(sKeyClassName)) {
+        throw std::runtime_error("Invalid use of the classname key");
+    }
+    auto className = getClassName();
+    map[sKeyClassName] = className;
+    return map;
+}
+
+void PolymorphicSerializable::loadFromMap(const QVariantMap &map) {
+    // Compare className with the stored className
+    auto className = getClassName();
+    if(map[sKeyClassName] != className) {
+        throw std::runtime_error("Invalid type of the deserialed object");
+    }
+    loadFromMapImpl(map);
+}
+
 }

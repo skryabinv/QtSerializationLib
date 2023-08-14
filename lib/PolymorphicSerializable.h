@@ -6,6 +6,7 @@
 #include <memory>
 #include <type_traits>
 #include "Serializable.h"
+#include "SerializationLib_global.h"
 
 namespace qstore {
 
@@ -13,7 +14,7 @@ namespace qstore {
  * Polymorphic storable types must be derived from this class
  * It create more for interface like hierarchies (with empty
  * */
-class PolymorphicSerializable : public Serializable {
+class SERIALIZATIONLIB_EXPORT PolymorphicSerializable : public Serializable {
 
 public:
     /*
@@ -42,23 +43,8 @@ private:
 
     // Storable interface
 public:
-    QVariantMap saveToMap() const override {
-        auto map = saveToMapImpl();
-        if(map.contains(sKeyClassName)) {
-            throw std::runtime_error("Invalid use of the classname key");
-        }
-        auto className = getClassName();
-        map[sKeyClassName] = className;
-        return map;
-    }
-    void loadFromMap(const QVariantMap &map) override {
-        // Compare className with the stored className
-        auto className = getClassName();
-        if(map[sKeyClassName] != className) {
-            throw std::runtime_error("Invalid type of the deserialed object");
-        }
-        loadFromMapImpl(map);
-    }
+    QVariantMap saveToMap() const override;
+    void loadFromMap(const QVariantMap &map) override;
 };
 
 #define QSTORE_CAT_1(a, b) a##b
@@ -75,7 +61,7 @@ namespace details {
 /*
  * Factory to create object by the classname key
  * */
-class SerializableFactory {
+class SERIALIZATIONLIB_EXPORT SerializableFactory {
 public:
     SerializableFactory(SerializableFactory&&) = delete;
     ~SerializableFactory();

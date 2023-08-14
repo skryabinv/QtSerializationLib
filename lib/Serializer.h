@@ -9,9 +9,9 @@ class Serializable;
 class Serializer {
 public:
     virtual ~Serializer() = default;
-    virtual void serialize(const Serializable& storable,
+    virtual void serialize(const Serializable& serializable,
                            const QString& filename) = 0;
-    virtual void deserialize(Serializable& storable,
+    virtual void deserialize(Serializable& serializable,
                              const QString& filename) = 0;
 };
 

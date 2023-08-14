@@ -7,11 +7,11 @@
 
 namespace qstore {
 
-void qstore::SerializerJSON::serialize(const Serializable &storable,
+void qstore::SerializerJSON::serialize(const Serializable &serializable,
                                        const QString &filename) {
     QFile file(filename);
     if(file.open(QIODevice::WriteOnly)) {
-        auto doc = QJsonDocument::fromVariant(storable.saveToMap());
+        auto doc = QJsonDocument::fromVariant(serializable.saveToMap());
         file.write(doc.toJson());
         file.close();
     }else {
@@ -19,14 +19,14 @@ void qstore::SerializerJSON::serialize(const Serializable &storable,
     }
 }
 
-void qstore::SerializerJSON::deserialize(Serializable &storable,
+void qstore::SerializerJSON::deserialize(Serializable &serializable,
                                          const QString &filename) {
     QFile file(filename);
     if(file.open(QIODevice::ReadOnly)) {
         QJsonParseError err;
         auto doc = QJsonDocument::fromJson(file.readAll(), &err);
         if(err.error == QJsonParseError::NoError) {
-            storable.loadFromMap(doc.toVariant().toMap());
+            serializable.loadFromMap(doc.toVariant().toMap());
         }
         file.close();
     } else {

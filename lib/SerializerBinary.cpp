@@ -4,11 +4,11 @@
 
 namespace qstore {
 
-void SerializerBinary::serialize(const Serializable &storable,
+void SerializerBinary::serialize(const Serializable &serializable,
                                  const QString &filename) {
 }
 
-void SerializerBinary::deserialize(Serializable &storable,
+void SerializerBinary::deserialize(Serializable &serializable,
                                    const QString &filename) {
 }
 
