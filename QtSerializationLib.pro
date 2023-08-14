@@ -10,11 +10,19 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    PolymorphicSerializable.cpp \
+    SerializerBinary.cpp \
+    SerializerJSON.cpp
 
 HEADERS += \
-    SerializationLib_global.h
+    PolymorphicSerializable.h \
+    Serializable.h \
+    SerializableHelper.h \
+    SerializationLib_global.h \
+    Serializer.h \
+    SerializerBinary.h \
+    SerializerJSON.h
 
-include(lib/lib.pri)
 
 # Default rules for deployment.
 unix {
