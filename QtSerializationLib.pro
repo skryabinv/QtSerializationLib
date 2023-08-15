@@ -21,7 +21,8 @@ HEADERS += \
     SerializationLib_global.h \
     Serializer.h \
     SerializerBinary.h \
-    SerializerJSON.h
+    SerializerJSON.h \
+    Utils.h
 
 
 # Default rules for deployment.

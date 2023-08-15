@@ -22,6 +22,11 @@ public:
      * */
     static std::unique_ptr<Serializable> makeAndDeserialize(const QVariantMap& map);
 
+    template<typename T>
+    static auto make(const QVariantMap& map) {
+        return std::unique_ptr<T>{dynamic_cast<T*>(makeAndDeserialize(map).release())};
+    }
+
 private:
     /*
      * Do not store anything with this key, when save data in the derived class!
@@ -39,7 +44,7 @@ private:
     /*
      * Load only data of the derived class
      * */
-    virtual void loadFromMapImpl(const QVariantMap& map) const = 0;
+    virtual void loadFromMapImpl(const QVariantMap& map) = 0;
 
     // Storable interface
 public:
