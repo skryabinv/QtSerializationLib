@@ -12,7 +12,7 @@ namespace qstore {
 
 /*
  * Polymorphic storable types must be derived from this class
- * It create more for interface like hierarchies (with empty
+ * It create more for interface like hierarchies
  * */
 class SERIALIZATIONLIB_EXPORT PolymorphicSerializable : public Serializable {
 
